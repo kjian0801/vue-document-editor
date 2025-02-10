@@ -151,6 +151,8 @@ export default {
       }
 
       // Spread content over several pages if it overflows
+      await this.waitForImagesToLoad();
+      console.log('所有图片加载完成')
       await this.fit_content_over_pages();
 
       // Remove the text cursor from the content, if any (its position is lost anyway)
@@ -462,6 +464,42 @@ export default {
     after_print () {
       document.body = this._page_body;
       this.update_editor_width();
+    },
+
+    // 判断页面中所有图片资源是否加载完成
+    areImagesLoaded() {
+      const images = this.$refs.content.querySelectorAll('img');
+      for (let img of images) {
+        if (!img.complete || img.naturalHeight === 0) {
+          return false;
+        }
+      }
+      return true;
+    },
+
+    // 等待所有图片资源加载完成
+    waitForImagesToLoad() {
+      return new Promise(resolve => {
+        const images = this.$refs.content.querySelectorAll('img');
+        let loadedCount = 0;
+        const checkIfAllLoaded = () => {
+          loadedCount++;
+          if (loadedCount === images.length) {
+            resolve();
+          }
+        };
+        images.forEach(img => {
+          if (img.complete && img.naturalHeight !== 0) {
+            checkIfAllLoaded();
+          } else {
+            img.onload = checkIfAllLoaded;
+            img.onerror = checkIfAllLoaded;
+          }
+        });
+        if (images.length === 0) {
+          resolve();
+        }
+      });
     }
   },
 
