@@ -336,6 +336,11 @@ export default {
       }
       this.current_text_style = style;
     },
+		
+		changePageSize(pageSize) {
+			sessionStorage.setItem('editorPageSize', pageSize)
+			this.reset_content()
+		},
 
     // Process the specific style (position and size) of each page <div> and content <div>
     page_style (page_idx, allow_overflow) {
@@ -380,6 +385,24 @@ export default {
           transform: "scale("+ this.zoom +")"
         }
         style[allow_overflow ? "minHeight" : "height"] = this.page_format_mm[1]+"mm";
+				
+				// 个人兼容：如果是A3幅面，则缩放为1，计算每页的left，top值
+				if (sessionStorage.getItem('editorPageSize') == 'A3') {
+					let width = this.$refs.editor.clientWidth
+					let pageWidth = this.page_format_mm[0] / px_in_mm
+					let pageHeight = this.page_format_mm[1] / px_in_mm
+					let pageSpacing = page_spacing_mm / px_in_mm
+					let left = (width - pageWidth * 2) / 2
+					if (page_idx % 2 == 0) {
+						style.left = left + 'px'
+					}
+					if (page_idx % 2 == 1) {
+						style.left = left + pageWidth + 'px'
+					}
+					style.top = parseInt(page_idx / 2) * (pageHeight + pageSpacing) + pageSpacing + 'px'
+					style.transform = "scale(1)"
+					style.boxShadow = 'none'
+				}
         return style;
       } else {
         // Content/background <div> is sized so it lets a margin around pages when scrolling at the end
