@@ -25,7 +25,7 @@ export default {
   components: { VueDocumentEditor, VueFileToolbarMenu },
 
   data () {
-    let zoom = Number((window.window.outerWidth/1400).toFixed(1))
+    let zoom = Number((window.window.innerWidth/1400).toFixed(1))
     return {
       // This is where the pages content is stored and synced
       content: [

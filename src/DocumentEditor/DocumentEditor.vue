@@ -392,15 +392,22 @@ export default {
 					let pageWidth = this.page_format_mm[0] / px_in_mm
 					let pageHeight = this.page_format_mm[1] / px_in_mm
 					let pageSpacing = page_spacing_mm / px_in_mm
+					let scale = 1
 					let left = (width - pageWidth * 2) / 2
+					if (left < 0) {
+						scale = width / 2 / pageWidth
+						left = 0
+					}
+					
 					if (page_idx % 2 == 0) {
 						style.left = left + 'px'
 					}
 					if (page_idx % 2 == 1) {
-						style.left = left + pageWidth + 'px'
+						style.left = left + pageWidth * scale + 'px'
 					}
-					style.top = parseInt(page_idx / 2) * (pageHeight + pageSpacing) + pageSpacing + 'px'
-					style.transform = "scale(1)"
+					let top = parseInt(page_idx / 2) * (pageHeight + pageSpacing) + pageSpacing
+					style.top = top * scale + 'px'
+					style.transform = `scale(${scale})`
 					style.boxShadow = 'none'
 				}
         return style;
