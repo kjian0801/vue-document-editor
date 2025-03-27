@@ -72,7 +72,10 @@ export default {
     },
 
     // "Do not break" test function: should return true on elements you don't want to be split over multiple pages but rather be moved to the next page
-    do_not_break: Function
+    do_not_break: Function,
+		
+    // dom分页完成
+    fitDone: Function,
   },
 
   data () {
@@ -154,7 +157,9 @@ export default {
       await this.waitForImagesToLoad();
       console.log('所有图片加载完成')
       await this.fit_content_over_pages();
-
+			
+      // 分页结束后，可操作dom		
+      this.fitDone && this.fitDone()
       // Remove the text cursor from the content, if any (its position is lost anyway)
       this.$refs.content.blur();
     },
