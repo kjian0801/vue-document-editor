@@ -73,9 +73,6 @@ export default {
 
     // "Do not break" test function: should return true on elements you don't want to be split over multiple pages but rather be moved to the next page
     do_not_break: Function,
-		
-    // dom分页完成
-    fitDone: Function,
   },
 
   data () {
@@ -159,7 +156,7 @@ export default {
       await this.fit_content_over_pages();
 			
       // 分页结束后，可操作dom		
-      this.fitDone && this.fitDone()
+      this.$emit('done')
       // Remove the text cursor from the content, if any (its position is lost anyway)
       this.$refs.content.blur();
     },

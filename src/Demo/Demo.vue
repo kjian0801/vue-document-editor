@@ -8,7 +8,7 @@
     <vue-document-editor class="editor" ref="editor"
       :content.sync="content"
       :overlay="overlay"
-      :fitDone="fitDone"
+      @done="done"
       :zoom="zoom"
       :page_format_mm="page_format_mm"
       :page_margins="page_margins"
@@ -319,7 +319,7 @@ export default {
   },
 
   methods: {
-    fitDone() {
+    done() {
       console.log('分页结束', document.getElementsByClassName('page'))
     },
     // Page overlays (headers, footers, page numbers)
