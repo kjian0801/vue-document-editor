@@ -135,7 +135,8 @@ export default {
       await this.$nextTick(); // wait for DOM update
       const first_page_elt = this.$refs[this.pages[0].uuid][0];
       if(!this.$refs.content.contains(first_page_elt)) this.$refs.content.appendChild(first_page_elt); // restore page in DOM in case it was removed
-      this.pages_height = first_page_elt.clientHeight + 1; // allow one pixel precision
+      // this.pages_height = first_page_elt.clientHeight + 1; // allow one pixel precision
+      this.pages_height = first_page_elt.clientHeight; // 不再允许1像素
 
       // Initialize text pages
       for(const page of this.pages) {
