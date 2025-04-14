@@ -263,6 +263,7 @@ export default {
       if(!e) return; // check that event is set
       await this.fit_content_over_pages(); // fit content according to modifications
       this.emit_new_content(); // emit content modification
+      this.$emit('done')
       if(e.inputType != "insertText") this.process_current_text_style(); // update current style if it has changed
     },
 
@@ -407,6 +408,7 @@ export default {
 					}
 					if (page_idx % 2 == 1) {
 						style.left = left + pageWidth * scale + 'px'
+            sessionStorage.setItem('editorPageStyleLeft', style.left)
 					}
 					let top = parseInt(page_idx / 2) * (pageHeight + pageSpacing) + pageSpacing
 					style.top = top * scale + 'px'
