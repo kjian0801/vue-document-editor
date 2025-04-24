@@ -408,8 +408,8 @@ export default {
 					}
 					if (page_idx % 2 == 1) {
 						style.left = left + pageWidth * scale + 'px'
-            sessionStorage.setItem('editorPageStyleLeft', style.left)
 					}
+          sessionStorage.setItem('editorPageStyleLeft', left + pageWidth * scale + 'px')
 					let top = parseInt(page_idx / 2) * (pageHeight + pageSpacing) + pageSpacing
 					style.top = top * scale + 'px'
 					style.transform = `scale(${scale})`
