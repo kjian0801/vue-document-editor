@@ -505,7 +505,7 @@ export default {
     areImagesLoaded() {
       const images = this.$refs.content.querySelectorAll('img');
       for (let img of images) {
-        if (!img.complete || img.naturalHeight === 0) {
+        if (!img.complete) {
           return false;
         }
       }
@@ -535,7 +535,7 @@ export default {
           resolve();
         }
       });
-    }
+    },
   },
 
   // Watch for changes and adapt content accordingly
