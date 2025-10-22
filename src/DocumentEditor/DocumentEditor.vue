@@ -390,8 +390,8 @@ export default {
         }
         style[allow_overflow ? "minHeight" : "height"] = this.page_format_mm[1]+"mm";
 				
-				// 个人兼容：如果是A3 || 8K幅面，则缩放为1，计算每页的left，top值
-				if (sessionStorage.getItem('editorPageSize') == 'A3' || sessionStorage.getItem('editorPageSize') == '8K') {
+				// 个人兼容：如果是A3 || 8开幅面，则缩放为1，计算每页的left，top值
+				if (sessionStorage.getItem('editorPageSize') == 'A3' || sessionStorage.getItem('editorPageSize') == '8开') {
 					let width = this.$refs.editor.clientWidth
 					let pageWidth = this.page_format_mm[0] / px_in_mm
 					let pageHeight = this.page_format_mm[1] / px_in_mm
